@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from pathlib import Path
+
 import pytest
 
 from socid_extractor.activation import get_twitter_headers
@@ -1302,3 +1304,22 @@ def test_memory_lol():
     assert info.get("id") == "1326229737551912960"
     assert info.get(
         "known_usernames") == "['shaya69830552', 'shaya_ray', 'chayaraichik', 'chayathepatriot', 'cuomomustgo', 'houseplantpotus', 'libsoftiktok']"
+
+
+def test_duolingo_api():
+    """Duolingo API"""
+    payload = (Path(__file__).parent / "fixtures" / "duolingo_maflow.json").read_text()
+    info = extract(payload)
+
+    assert info.get('uid') == '20353718'
+    assert info.get('username') == 'Maflow'
+    assert info.get('fullname') == 'Mafer'
+    assert info.get('image') == 'https://simg-ssl.duolingo.com/avatar/default_2'
+    assert info.get('created_at') == '2014-01-01 19:07:14 UTC'
+    assert info.get('url') == 'https://www.duolingo.com/profile/Maflow'
+    assert info.get('streak') == '0'
+    assert info.get('totalXp') == '411'
+    assert info.get('learningLanguage') == 'en'
+    assert info.get('fromLanguage') == 'es'
+    assert 'courses' in info
+    assert 'bio' not in info

@@ -11,4 +11,5 @@ dist
 venv
 *.log
 *.json
+!tests/fixtures/*.json
 *.txt
