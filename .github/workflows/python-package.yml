@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
     - uses: actions/checkout@v2
@@ -37,6 +37,6 @@ jobs:
         mypy socid_extractor/
     - name: Test with pytest
       run: |
-        pip install pytest==6.2.5 pytest-rerunfailures
+        pip install -r test-requirements.txt
         # do not run tests required auth with secrets
         pytest -k 'not cookies' -m 'not github_failed and not rate_limited' --reruns 3 --reruns-delay 30
