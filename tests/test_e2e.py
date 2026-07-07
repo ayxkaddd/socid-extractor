@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import json
-
 import pytest
 
 from socid_extractor.activation import get_twitter_headers
