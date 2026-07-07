@@ -84,7 +84,7 @@
 79 | vBulletinEngine |  |  |
 80 | Tumblr (default theme) |  |  |
 81 | 1x.com |  |  |
-82 | Last.fm | [last_fm](https://github.com/soxoj/socid-extractor/search?q=test_last_fm) |  |
+82 | Last.fm | [last_fm](https://github.com/soxoj/socid-extractor/search?q=test_last_fm) | requests from GitHub Actions CI servers are blocked |
 83 | Ask.fm | [ask_fm](https://github.com/soxoj/socid-extractor/search?q=test_ask_fm) | broken |
 84 | Launchpad | [launchpad](https://github.com/soxoj/socid-extractor/search?q=test_launchpad) | requests from GitHub Actions CI servers are blocked |
 85 | Xakep.ru |  |  |
@@ -106,7 +106,7 @@
 101 | PayPal |  |  |
 102 | Tinder | [tinder](https://github.com/soxoj/socid-extractor/search?q=test_tinder) | broken |
 103 | ifunny.co | [ifunny_co](https://github.com/soxoj/socid-extractor/search?q=test_ifunny_co) |  |
-104 | Wattpad API | [wattpad_api](https://github.com/soxoj/socid-extractor/search?q=test_wattpad_api) |  |
+104 | Wattpad API | [wattpad_api](https://github.com/soxoj/socid-extractor/search?q=test_wattpad_api) | Wattpad API endpoint is unavailable / unstable from CI (2026) |
 105 | Kik | [kik](https://github.com/soxoj/socid-extractor/search?q=test_kik) | broken |
 106 | Docker Hub API | [docker_hub_api](https://github.com/soxoj/socid-extractor/search?q=test_docker_hub_api) |  |
 107 | Mixcloud API | [mixcloud_api](https://github.com/soxoj/socid-extractor/search?q=test_mixcloud_api) |  |
@@ -156,7 +156,13 @@
 151 | Spatial | [spatial_e2e](https://github.com/soxoj/socid-extractor/search?q=test_spatial_e2e) | requests from GitHub Actions CI servers are blocked |
 152 | OpenSea |  |  |
 153 | Hive Blog |  |  |
-154 | BuyMeACoffee | [buymeacoffee](https://github.com/soxoj/socid-extractor/search?q=test_buymeacoffee) |  |
-155 | Discourse API |  |  |
+154 | ORCID API |  |  |
+155 | OpenAlex Authors API |  |  |
+156 | arXiv author page |  |  |
+157 | DBLP person record |  |  |
+158 | Scholia author profile |  |  |
+159 | BuyMeACoffee | [buymeacoffee](https://github.com/soxoj/socid-extractor/search?q=test_buymeacoffee) |  |
+160 | Discourse API |  |  |
+161 | Snapchat | [snapchat](https://github.com/soxoj/socid-extractor/search?q=test_snapchat) |  |
 
-The table has been updated at 2026-06-03 04:26:52.125931 UTC
+The table has been updated at 2026-07-07 11:34:25.107248 UTC
