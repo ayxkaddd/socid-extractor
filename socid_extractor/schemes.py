@@ -3200,6 +3200,25 @@ schemes = {
             'latest_activity_at': lambda x: x.get('last_seen_at'),
         },
     },
+    'Snapchat': {
+        'flags': ['__NEXT_DATA__', '"userProfile":'],
+        'regex': r'<script[^>]+id="__NEXT_DATA__"[^>]*>([\s\S]+?)</script>',
+        'extract_json': True,
+        'transforms': [
+            json.loads,
+            lambda x: x['props']['pageProps'],
+            json.dumps,
+        ],
+        'fields': {
+            'username': lambda x: x['userProfile']['userInfo'].get('username'),
+            'fullname': lambda x: x['userProfile']['userInfo'].get('displayName'),
+            'bio': lambda x: x.get('pageMetadata', {}).get('pageDescription', {}).get('value'),
+            'url': lambda x: x.get('linkPreview', {}).get('canonicalUrl'),
+            'image': lambda x: x.get('linkPreview', {}).get('twitterImage', {}).get('url'),
+            'snapcode_image': lambda x: x['userProfile']['userInfo'].get('snapcodeImageUrl'),
+            'profile_type': lambda x: x['userProfile'].get('$case'),
+        }
+    },
 }
 
 # -- Plugin loading (must come after the built-in schemes dict is defined) --

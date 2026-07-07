@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import json
+
 import pytest
 
 from socid_extractor.activation import get_twitter_headers
@@ -1588,7 +1590,7 @@ def test_instagram_graphql_e2e():
         'referer': 'https://www.instagram.com/',
     }
     body, status_code = parse('https://www.instagram.com/api/v1/users/web_profile_info/?username=cristiano', headers=headers)
- 
+
     # Gracefully skip if rate limited / blocked in current environment
     if status_code in (403, 429) or not body:
         pytest.skip(f"Rate limited or blocked by Instagram API (status {status_code})")
@@ -1603,3 +1605,18 @@ def test_instagram_graphql_e2e():
     assert info.get('is_private') == 'False'
     assert info.get('is_verified') == 'True'
     assert int(info.get('follower_count', 0)) > 500000000
+
+
+def test_snapchat():
+    """Snapchat"""
+    info = extract(parse('https://www.snapchat.com/@ogovorka')[0])
+
+    assert info.get('username') == 'ogovorka'
+    assert info.get('fullname') == 'Катерина Иванова'
+    assert info.get('bio') == 'Катерина Иванова is on Snapchat! (@ogovorka)'
+    assert info.get('url') == 'https://www.snapchat.com/@ogovorka'
+    assert info.get(
+        'image') == 'https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@ogovorka/preview/square.jpeg?xp_id=1'
+    assert info.get(
+        'snapcode_image') == 'https://app.snapchat.com/web/deeplink/snapcode?username=ogovorka&type=SVG&bitmoji=enable'
+    assert info.get('profile_type') == 'userInfo'
