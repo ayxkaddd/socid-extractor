@@ -1618,3 +1618,21 @@ def test_snapchat():
     assert info.get(
         'snapcode_image') == 'https://app.snapchat.com/web/deeplink/snapcode?username=ogovorka&type=SVG&bitmoji=enable'
     assert info.get('profile_type') == 'userInfo'
+
+
+def test_bio_site():
+    """Bio Site"""
+    info = extract(parse('https://bio.site/Fish')[0])
+
+    assert info.get('uid') == '900C1C86-7397-438A-A4BB-D5201C13A943'
+    assert info.get('username') == 'Fish'
+    assert info.get('fullname') == 'F.B_Studio'
+    assert info.get('bio') == '-\n平價男女裝｜飾品｜生活小物 \n𝐹𝑖𝑠ℎ.𝑏𝑎𝑒 𝑠𝑡𝑢𝑑𝑖𝑜 ✔︎\n'
+    assert info.get('image') == 'https://media.bio.site/sites/7pQNVV5qXgtSrGyhMQd8eY/qYkypfu4hmxAKnufxJqfQc.png'
+    assert info.get('image_bg') == 'https://media.bio.site/sites/7pQNVV5qXgtSrGyhMQd8eY/oqtWruzh467NWyWAJEbjRf.png'
+    assert info.get('created_at') == '2022-03-03 09:24:42 UTC'
+    assert info.get('updated_at') == '2022-10-16 11:59:42 UTC'
+    assert info.get('instagram_username') == 'fish_bae148'
+    assert 'https://www.instagram.com/fish_bae148' in info.get('links')
+    assert 'https://shopee.tw/kissyoumybaby' in info.get('links')
+    assert 'social_links' not in info
