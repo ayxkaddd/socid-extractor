@@ -124,6 +124,37 @@ def _gh_handle_for(accounts, provider):
     return None
 
 
+def _bio_site_section(profile, section_type):
+    for item in profile.get('body') or []:
+        if item.get('type') == section_type:
+            return item.get('section') or {}
+    return {}
+
+
+def _bio_site_social_handles(profile):
+    return _bio_site_section(profile, 'section_social').get('handles') or []
+
+
+def _bio_site_links(profile):
+    urls = []
+    for handle in _bio_site_social_handles(profile):
+        if handle.get('url'):
+            urls.append(handle.get('url'))
+
+    links_section = _bio_site_section(profile, 'section_links')
+    for link in links_section.get('links') or []:
+        if link.get('url'):
+            urls.append(link.get('url'))
+    return urls
+
+
+def _bio_site_social_value(profile, provider):
+    for handle in _bio_site_social_handles(profile):
+        if handle.get('type') == provider:
+            return handle.get('value')
+    return None
+
+
 schemes = {
     # IMPORTANT: extract() returns the FIRST matching scheme.
     # More specific schemes (more/stricter flags) must come BEFORE
@@ -3218,6 +3249,24 @@ schemes = {
             'snapcode_image': lambda x: x['userProfile']['userInfo'].get('snapcodeImageUrl'),
             'profile_type': lambda x: x['userProfile'].get('$case'),
         }
+    },
+    'Bio Site': {
+        'url_hints': ('bio.site',),
+        'flags': ['window.initial_state=', 'media.bio.site', 'Bio Sites'],
+        'regex': r'window\.initial_state=({[\s\S]+?});\s*window\.additionalRenderingContext=',
+        'extract_json': True,
+        'fields': {
+            'uid': lambda x: x.get('id'),
+            'username': lambda x: x.get('metadata', {}).get('handle'),
+            'fullname': lambda x: x.get('header', {}).get('name'),
+            'bio': lambda x: x.get('header', {}).get('bio'),
+            'image': lambda x: x.get('header', {}).get('profile_photo'),
+            'image_bg': lambda x: x.get('header', {}).get('cover_photo'),
+            'created_at': lambda x: parse_datetime(x.get('metadata', {}).get('created_at')),
+            'updated_at': lambda x: parse_datetime(x.get('metadata', {}).get('last_updated_at')),
+            'links': _bio_site_links,
+            'instagram_username': lambda x: _bio_site_social_value(x, 'instagram'),
+        },
     },
 }
 
